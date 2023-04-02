@@ -4,22 +4,16 @@
 #include <WiFiClient.h>
 #include <SPI.h>
 #include <EEPROM.h>
+#include "main.h"
 #include "inverter-data-provider.h"
 #include "loop-manager.h"
 #include "display.h"
 #include "credentials.h"
 
-#define D_MODE_ADDR 1
+#define DISPLAY_MODE_EEPROM_ADDR 1
 #define SWITCH D6
 #define POWER_LED D5
 #define MESSAGE_LED D7
-
-void fetch_data();
-void init_display_mode();
-void toggle_display_mode();
-void render_screen();
-bool good_time_to_waste_power();
-IPAddress wait_for_connection();
 
 LoopManager loop_manager;
 Display display(128, 64);
@@ -31,7 +25,6 @@ int led_state = LOW;
 
 void setup()
 {
-
   pinMode(SWITCH, INPUT);
   pinMode(MESSAGE_LED, OUTPUT);
   pinMode(POWER_LED, OUTPUT);
@@ -67,6 +60,9 @@ void loop()
   }
 }
 
+/**
+ * Fetches inverter data from the specified API endpoint.
+*/
 void fetch_data()
 {
   if (WiFi.status() == WL_CONNECTED)
@@ -136,7 +132,11 @@ void render_screen()
 */
 bool good_time_to_waste_power()
 {
-  return true;
+  return (current.data.battery == 100 && current.data.yield >= 2)
+    || (current.data.battery >= 75 && current.data.yield >= 2.5)
+    || (current.data.battery >= 50 && current.data.yield >= 3)
+    || (current.data.battery >= 25 && current.data.yield >= 4)
+    || (current.data.battery >= 10 && current.data.yield >= 5);
 }
 
 /**
@@ -144,7 +144,7 @@ bool good_time_to_waste_power()
  */
 void init_display_mode()
 {
-  int stored = EEPROM.read(D_MODE_ADDR);
+  int stored = EEPROM.read(DISPLAY_MODE_EEPROM_ADDR);
   display_mode = stored == 1
                      ? Display::DisplayMode::Battery
                      : stored == 2
@@ -172,7 +172,7 @@ void toggle_display_mode()
     break;
   }
 
-  EEPROM.write(D_MODE_ADDR, (uint8_t)display_mode);
+  EEPROM.write(DISPLAY_MODE_EEPROM_ADDR, (uint8_t)display_mode);
   EEPROM.commit();
 }
 
