@@ -67,17 +67,16 @@ void fetch_data()
 {
   if (WiFi.status() == WL_CONNECTED)
   {
-    InverterDataProvider::Response response = data_provider.provide();
+    current = data_provider.provide();
 
-    if (response.message_only)
+    if (current.message_only)
     {
       digitalWrite(MESSAGE_LED, HIGH);
       digitalWrite(POWER_LED, LOW);
-      display.show_message(response.message);
+      display.show_message(current.message);
     }
     else
     {
-      current = response;
       int waste_it = good_time_to_waste_power();
       digitalWrite(POWER_LED, waste_it);
       digitalWrite(MESSAGE_LED, LOW);
