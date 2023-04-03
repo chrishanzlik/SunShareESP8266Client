@@ -38,7 +38,7 @@ InverterDataProvider::Response InverterDataProvider::provide()
         if (JSON.typeof(myObject["message"]) == "string")
         {
             Serial.println(myObject["message"]);
-            response.message = String(myObject["message"]);
+            response.message = String((const char *)myObject["message"]);
             response.message_only = true;
 
             return response;
@@ -51,11 +51,12 @@ InverterDataProvider::Response InverterDataProvider::provide()
         d.load = myObject["snapshot"]["load"];
         d.grid = myObject["snapshot"]["grid"];
         d.yield = myObject["snapshot"]["yield"];
-        d.timestamp= String(myObject["timestamp"]);
+        d.timestamp = String((const char *)myObject["timestamp"]);
 
+        response.is_high_gain = (bool)myObject["isHighGain"];
         response.data = d;
 
-        Serial.println(myObject["snapshot"]);
+        Serial.println(myObject);
 
         return response;
     }

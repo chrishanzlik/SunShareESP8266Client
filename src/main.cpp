@@ -12,8 +12,8 @@
 
 #define DISPLAY_MODE_EEPROM_ADDR 1
 #define SWITCH D6
-#define POWER_LED D5
-#define MESSAGE_LED D7
+#define HIGH_GAIN_LED D7
+#define MESSAGE_LED D5
 
 LoopManager loop_manager;
 Display display(128, 64);
@@ -27,9 +27,9 @@ void setup()
 {
   pinMode(SWITCH, INPUT);
   pinMode(MESSAGE_LED, OUTPUT);
-  pinMode(POWER_LED, OUTPUT);
+  pinMode(HIGH_GAIN_LED, OUTPUT);
 
-  loop_manager.register_handler(fetch_data, 5000);
+  loop_manager.register_handler(fetch_data, 4000);
 
   EEPROM.begin(1024);
   Serial.begin(115200);
@@ -44,7 +44,7 @@ void setup()
 
   IPAddress ip = wait_for_connection();
   display.show_connection_info(ip.toString());
-  delay(1000);
+  delay(1500);
 }
 
 void loop()
@@ -62,7 +62,7 @@ void loop()
 
 /**
  * Fetches inverter data from the specified API endpoint.
-*/
+ */
 void fetch_data()
 {
   if (WiFi.status() == WL_CONNECTED)
@@ -72,13 +72,12 @@ void fetch_data()
     if (current.message_only)
     {
       digitalWrite(MESSAGE_LED, HIGH);
-      digitalWrite(POWER_LED, LOW);
+      digitalWrite(HIGH_GAIN_LED, LOW);
       display.show_message(current.message);
     }
     else
     {
-      int waste_it = good_time_to_waste_power();
-      digitalWrite(POWER_LED, waste_it);
+      digitalWrite(HIGH_GAIN_LED, current.is_high_gain);
       digitalWrite(MESSAGE_LED, LOW);
       render_screen();
     }
@@ -127,18 +126,6 @@ void render_screen()
 }
 
 /**
- * Indicates if it's good time to consume
-*/
-bool good_time_to_waste_power()
-{
-  return (current.data.battery == 100 && current.data.yield >= 2)
-    || (current.data.battery >= 75 && current.data.yield >= 2.5)
-    || (current.data.battery >= 50 && current.data.yield >= 3)
-    || (current.data.battery >= 25 && current.data.yield >= 4)
-    || (current.data.battery >= 10 && current.data.yield >= 5);
-}
-
-/**
  * Initialize the display mode
  */
 void init_display_mode()
@@ -146,7 +133,7 @@ void init_display_mode()
   int stored = EEPROM.read(DISPLAY_MODE_EEPROM_ADDR);
   display_mode = stored == 1
                      ? Display::DisplayMode::Battery
-                     : stored == 2
+                 : stored == 2
                      ? Display::DisplayMode::Timestamp
                      : Display::DisplayMode::All;
 }

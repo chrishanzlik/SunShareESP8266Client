@@ -13,6 +13,7 @@ public:
         InverterData data;
         String message;
         bool message_only;
+        bool is_high_gain;
     };
     Response provide();
 

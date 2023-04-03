@@ -73,7 +73,7 @@ struct Display::Private
         display.drawRect(start_x, starty_y, width - 5, height, WHITE);
 
         // Plus pole
-        display.fillRect(start_x + width - 5, starty_y + (height * 1/3), 5, (height * 1/3), WHITE);
+        display.fillRect(start_x + width - 5, starty_y + (height * 1 / 3), 5, (height * 1 / 3), WHITE);
 
         // Draw capacity
         int fullWidth = width - 5 - 4;
@@ -100,9 +100,9 @@ void Display::setup()
 void Display::show_connection_info(String ip)
 {
     display.clearDisplay();
-    display.setCursor(boundage_x, boundage_y);
+    display.setCursor(boundage_x - 5, boundage_y + 2);
     display.print("Success!");
-    display.setCursor(boundage_x, boundage_y + line_height + 2);
+    display.setCursor(boundage_x - 5, boundage_y + line_height + 4);
     display.print(ip);
     display.display();
 
@@ -138,8 +138,8 @@ void Display::show_full_dataset(int battery, double batteryLoad, double load, do
 void Display::show_battery(int battery)
 {
     display.clearDisplay();
-    
-    Private::draw_indicator_battery(display, 10, 15, 108, 44, battery);
+
+    Private::draw_indicator_battery(display, 13, 15, 108, 44, battery);
 
     display.display();
 }
@@ -147,10 +147,10 @@ void Display::show_battery(int battery)
 void Display::show_timestamp(String date, String time)
 {
     display.clearDisplay();
-    display.setCursor(boundage_x, boundage_y + 5);
+    display.setCursor(boundage_x + 2, boundage_y + 5);
     display.print(date);
 
-    display.setCursor(boundage_x, boundage_y + line_height + 10);
+    display.setCursor(boundage_x + 2, boundage_y + line_height + 10);
     display.print(time);
 
     display.display();
