@@ -31,7 +31,7 @@ void setup()
 
   loop_manager.register_handler(fetch_data, 4000);
 
-  EEPROM.begin(1024);
+  // EEPROM.begin(1024);
   Serial.begin(115200);
 
   delay(2000);
@@ -130,12 +130,14 @@ void render_screen()
  */
 void init_display_mode()
 {
-  int stored = EEPROM.read(DISPLAY_MODE_EEPROM_ADDR);
-  display_mode = stored == 1
-                     ? Display::DisplayMode::Battery
-                 : stored == 2
-                     ? Display::DisplayMode::Timestamp
-                     : Display::DisplayMode::All;
+  // int stored = EEPROM.read(DISPLAY_MODE_EEPROM_ADDR);
+  // display_mode = stored == 1
+  //                    ? Display::DisplayMode::Battery
+  //                : stored == 2
+  //                    ? Display::DisplayMode::Timestamp
+  //                    : Display::DisplayMode::All;
+
+  display_mode = Display::DisplayMode::All;
 }
 
 /**
@@ -158,8 +160,8 @@ void toggle_display_mode()
     break;
   }
 
-  EEPROM.write(DISPLAY_MODE_EEPROM_ADDR, (uint8_t)display_mode);
-  EEPROM.commit();
+  // EEPROM.write(DISPLAY_MODE_EEPROM_ADDR, (uint8_t)display_mode);
+  // EEPROM.commit();
 }
 
 /**
