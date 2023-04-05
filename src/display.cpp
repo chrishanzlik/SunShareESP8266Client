@@ -6,9 +6,16 @@
 
 struct Display::Private
 {
-    static void draw_sun_icon(Adafruit_SSD1306 &display, int center_x, int center_y, int size)
+    static void draw_sun_icon(Adafruit_SSD1306 &display, double yield, int center_x, int center_y, int size)
     {
-        display.drawCircle(center_x, center_y, size, WHITE);
+        if (yield < 5)
+        {
+            display.drawCircle(center_x, center_y, size, WHITE);
+        }
+        else
+        {
+            display.fillCircle(center_x, center_y, size, WHITE);
+        }
 
         display.drawPixel(center_x, center_y - size - 2, WHITE);
         display.drawPixel(center_x, center_y + size + 2, WHITE);
@@ -46,7 +53,7 @@ struct Display::Private
         display.drawLine(center_x + size, center_y, center_x + size, center_y + size, WHITE);
     }
 
-    static void draw_battery_icon(Adafruit_SSD1306 &display, int center_x, int center_y, int size)
+    static void draw_battery_icon(Adafruit_SSD1306 &display, int battery, int center_x, int center_y, int size)
     {
         // Outer Top line
         display.drawLine(center_x - size, center_y - size + 2, center_x + size, center_y - size + 2, WHITE);
@@ -64,7 +71,26 @@ struct Display::Private
         display.drawLine(center_x + size + 1, center_y - (int)(size * 0.3), center_x + size + 1, center_y + (int)(size * 0.3), WHITE);
 
         // Fill capacity
-        display.fillRect(center_x - size + 2, center_y - size + 4, size, (size * 2) - 7, WHITE);
+        if (battery > 0 && battery < 25)
+        {
+            display.fillRect(center_x - size + 2, center_y - size + 4, size - 2, (size * 2) - 7, WHITE);
+        }
+        else if (battery >= 25 && battery < 50)
+        {
+            display.fillRect(center_x - size + 2, center_y - size + 4, size - 2, (size * 2) - 7, WHITE);
+        }
+        else if (battery >= 50 && battery < 75)
+        {
+            display.fillRect(center_x - size + 2, center_y - size + 4, size, (size * 2) - 7, WHITE);
+        }
+        else if (battery >= 75 && battery < 100)
+        {
+            display.fillRect(center_x - size + 2, center_y - size + 4, size, (size * 2) - 7, WHITE);
+        }
+        else if (battery == 100)
+        {
+            display.fillRect(center_x - size + 2, center_y - size + 4, (size * 2) - 3, (size * 2) - 7, WHITE);
+        }
     }
 
     static void draw_indicator_battery(Adafruit_SSD1306 &display, int start_x, int starty_y, int width, int height, int loadPercent)
@@ -117,12 +143,12 @@ void Display::show_full_dataset(int battery, double batteryLoad, double load, do
 
     display.clearDisplay();
 
-    Private::draw_battery_icon(display, iconsLeft, 16, 6);
+    Private::draw_battery_icon(display, battery, iconsLeft, 16, 6);
     display.setCursor(fontLeft, boundage_y);
     display.print(battery);
     display.println(" %");
 
-    Private::draw_sun_icon(display, iconsLeft, 34, 5);
+    Private::draw_sun_icon(display, yield, iconsLeft, 34, 5);
     display.setCursor(fontLeft, boundage_y + line_height);
     display.print(yield, 1);
     display.println(" kW");

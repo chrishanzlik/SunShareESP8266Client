@@ -29,7 +29,7 @@ void setup()
   pinMode(MESSAGE_LED, OUTPUT);
   pinMode(HIGH_GAIN_LED, OUTPUT);
 
-  loop_manager.register_handler(fetch_data, 4000);
+  loop_manager.register_handler(fetch_data, 2500);
 
   // EEPROM.begin(1024);
   Serial.begin(115200);
