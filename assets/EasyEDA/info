@@ -1,0 +1,162 @@
+{
+  "uuid": "45f8188b6d775f58d8091b7091c8766f",
+  "path": "Offline/SunShareESP8266Client",
+  "name": "SunShareESP8266Client",
+  "content": "",
+  "created_at": "2023-04-21 08:13:44",
+  "updated_at": "2023-04-21 09:19:43",
+  "stick": "",
+  "documents": [
+    {
+      "uuid": "19f5c20d68da2cbc49ef6e9c6386f455",
+      "title": "Sheet_1",
+      "description": "",
+      "docType": "1",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "6b188db9741442c48f8f69ab3b11de42": 1,
+        "eea74e3a16f548f383486f844f2fd995": 1,
+        "5c1036b53a4146e4841df4ed0a9de8f0": 1,
+        "b0248eb51e084227889f2cb84eab79c4": 3,
+        "cf6eca9c9efe444882712b3d5cec1885": 1,
+        "5cbe824183374fac8e4c1ae848199ce3": 1
+      },
+      "BOM": [
+        [
+          "Value",
+          "Quantity",
+          "Package",
+          "Components",
+          "CustomPara"
+        ],
+        [
+          "K2-3.6×6.1_SMD",
+          1,
+          "KEY-SMD_2P-L6.2-W3.6-LS8.0",
+          "KEY1",
+          {
+            "BOM_Supplier Part": "C118141",
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer Part": "K2-1107ST-A4SW-06",
+            "puuid": "daacbe2eec304950b61eef2efe596556",
+            "uuid": "5c1036b53a4146e4841df4ed0a9de8f0"
+          }
+        ],
+        [
+          "LED-0603_G",
+          1,
+          "LED0603_GREEN",
+          "LED1",
+          {
+            "BOM_Manufacturer": "EVERLIGHT(台湾亿光)",
+            "BOM_Manufacturer Part": "19-217/GHC-YR1S2/3T",
+            "BOM_Supplier Part": "C72043",
+            "BOM_Supplier": "LCSC",
+            "puuid": "7b706fa666744f94a830dffb572df5db",
+            "uuid": "cf6eca9c9efe444882712b3d5cec1885"
+          }
+        ],
+        [
+          "LED-0603_R",
+          1,
+          "LED0603_RED",
+          "LED2",
+          {
+            "BOM_Manufacturer": "EVERLIGHT(台湾亿光)",
+            "BOM_Manufacturer Part": "19-217/R6C-AL1M2VY/3T",
+            "BOM_Supplier Part": "C72044",
+            "BOM_Supplier": "LCSC",
+            "puuid": "1efb3a885b5b4aecb6d41221a8f4d86b",
+            "uuid": "5cbe824183374fac8e4c1ae848199ce3"
+          }
+        ],
+        [
+          "0.96OLED_4P",
+          1,
+          "0.96OLED_4P",
+          "OLED1",
+          {
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "LCSC",
+            "BOM_Manufacturer": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "88b7b62f56d14ce0a65d98c420c09d52",
+            "uuid": "eea74e3a16f548f383486f844f2fd995"
+          }
+        ],
+        [
+          "1kΩ",
+          1,
+          "R0603",
+          "R1",
+          {
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "398691f1f785460098bbe5ee6590333c",
+            "uuid": "b0248eb51e084227889f2cb84eab79c4"
+          }
+        ],
+        [
+          "150Ω",
+          2,
+          "R0603",
+          "R2,R3",
+          {
+            "BOM_Supplier Part": "",
+            "BOM_Supplier": "",
+            "BOM_Manufacturer Part": "",
+            "puuid": "398691f1f785460098bbe5ee6590333c",
+            "uuid": "b0248eb51e084227889f2cb84eab79c4"
+          }
+        ],
+        [
+          "WEMOS-D1-MINI ESP12",
+          1,
+          "WEMOS-D1-MINI",
+          "WEMOS1",
+          {
+            "BOM_Manufacturer Part": "",
+            "puuid": "bb1f2deb41dd4c4a9e06d01e091eb176",
+            "uuid": "6b188db9741442c48f8f69ab3b11de42"
+          }
+        ]
+      ],
+      "updateTime": 1682061583,
+      "createTime": 1682057624,
+      "histories": [],
+      "created_at": "2023-04-21 08:13:44",
+      "updated_at": "2023-04-21 09:19:43"
+    },
+    {
+      "uuid": "5f817fb71ee8f874f8d7b23fe49a0d17",
+      "puuid": "45f8188b6d775f58d8091b7091c8766f",
+      "title": "PCB_SunShareESP8266Client",
+      "filename": "PCB_SunShareESP8266Client.json",
+      "description": "",
+      "docType": "3",
+      "master": "",
+      "thumb": "/images/thumb-default.png",
+      "components": {
+        "daacbe2eec304950b61eef2efe596556": 1,
+        "7b706fa666744f94a830dffb572df5db": 1,
+        "1efb3a885b5b4aecb6d41221a8f4d86b": 1,
+        "88b7b62f56d14ce0a65d98c420c09d52": 1,
+        "398691f1f785460098bbe5ee6590333c": 3,
+        "bb1f2deb41dd4c4a9e06d01e091eb176": 1
+      },
+      "BOM": [],
+      "updateTime": 1682061484,
+      "createTime": 1682061484,
+      "histories": [],
+      "created_at": "2023-04-21 09:18:04",
+      "updated_at": "2023-04-21 09:18:04"
+    }
+  ],
+  "sort": [],
+  "title": "SunShareESP8266Client",
+  "foldername": "SunShareESP8266Client",
+  "schfilename": "SunShareESP8266Client.json",
+  "schfilemtime": 1682061583090
+}
